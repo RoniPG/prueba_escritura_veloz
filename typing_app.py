@@ -13,6 +13,7 @@ class TypingSpeedApp:
         # Guardaremos referencias para usarlas más adelante
         self.phrase_label: tk.Label | None = None
         self.typing_entry: tk.Entry | None = None
+        self.result_label: tk.Label | None = None
 
         # Estado de la prueba
         self.start_time: float | None = None
@@ -70,6 +71,23 @@ class TypingSpeedApp:
         )
         start_button.pack(pady=5)
 
+        # Botón para finalizar la prueba
+        finish_button = tk.Button(
+            self.root,
+            text="Finalizar Prueba",
+            command=self.finish_test,
+        )
+        finish_button.pack(pady=5)
+
+        # Etiqueta de resultados(inicialmente vacía)
+        self.result_label = tk.Label(
+            self.root,
+            text="",
+            font=("Arial", 11),
+            fg="#222222"
+        )
+        self.result_label.pack(pady=5)
+
         # Botón de salir
         exit_button = tk.Button(self.root, text="Salir", command=self.root.destroy)
         exit_button.pack(pady=20)
@@ -90,3 +108,25 @@ class TypingSpeedApp:
         # Guardar tiempo de inicio
         self.start_time = time.time()
         print(f"Test started at: {self.start_time}")  # debug en consola
+    def finish_test(self) -> None:
+        """Calcula el tiempo total de la prueba y lo muestra en pantalla."""
+        if self.start_time is None:
+            # No se ha iniciado la prueba todavía
+            if self.result_label is not None:
+                self.result_label.config(
+                    text="Primero debes iniciar la prueba.",
+                    fg="red",
+                )
+            return
+
+        end_time = time.time()
+        elapsed_seconds = end_time - self.start_time
+
+        if self.result_label is not None:
+            self.result_label.config(
+                text=f"Tiempo total: {elapsed_seconds:.2f} segundos",
+                fg="#222222",
+            )
+
+        # Reseteamos start_time para evitar reutilizarlo sin nuevo inicio
+        self.start_time = None
