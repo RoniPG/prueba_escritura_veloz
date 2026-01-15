@@ -15,6 +15,21 @@ def main():
     )
     title_label.pack(pady=20)
 
+    # Mensaje descriptivo
+    description_label = tk.Label(
+        root,
+        text=(
+            "En esta aplicación verás una frase y tu reto será escribirla "
+            "lo más rápido y preciso posible."
+        ),
+        wraplength=500,      # Ajusta el texto al ancho
+        justify="center",    # Centra el texto
+        font=("Arial", 12),
+        fg="#555555"       # Color gris suave
+    )
+    description_label.pack(pady=10)
+
+
     '''
     TODO: Añadir widgets y lógica de la aplicación aquí
     - Mensaje descriptivo donde escribirá el usuario
