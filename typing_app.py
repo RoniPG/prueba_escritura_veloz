@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 
 from phrases import get_random_phrase
@@ -12,6 +13,9 @@ class TypingSpeedApp:
         # Guardaremos referencias para usarlas más adelante
         self.phrase_label: tk.Label | None = None
         self.typing_entry: tk.Entry | None = None
+
+        # Estado de la prueba
+        self.start_time: float | None = None
 
         self._build_widgets()
 
@@ -58,6 +62,31 @@ class TypingSpeedApp:
         self.typing_entry.insert(0, "Escribe aquí la frase mostrada arriba...")
         self.typing_entry.config(fg="#888888")
 
+        # Botón para iniciar la prueba
+        start_button = tk.Button(
+            self.root,
+            text="Iniciar Prueba",
+            command=self.start_test,
+        )
+        start_button.pack(pady=5)
+
         # Botón de salir
         exit_button = tk.Button(self.root, text="Salir", command=self.root.destroy)
         exit_button.pack(pady=20)
+
+    def start_test(self) -> None:
+        """Prepara la prueba y guarda el tiempo de inicio."""
+        # Limpiar el campo de texto
+        if self.typing_entry is not None:
+            self.typing_entry.delete(0, tk.END)
+            self.typing_entry.config(fg="#000000")
+            self.typing_entry.focus()
+
+        # (Opcional) cambiar la frase al iniciar cada test
+        if self.phrase_label is not None:
+            new_phrase = get_random_phrase()
+            self.phrase_label.config(text=new_phrase)
+
+        # Guardar tiempo de inicio
+        self.start_time = time.time()
+        print(f"Test started at: {self.start_time}")  # debug en consola
