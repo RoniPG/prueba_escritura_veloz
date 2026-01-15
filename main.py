@@ -29,11 +29,18 @@ def main():
     )
     description_label.pack(pady=10)
 
+    # Botón de salir
+    exit_button = tk.Button(
+        root,
+        text="Salir",
+        command=root.destroy
+    )
+    exit_button.pack(pady=20)
+
 
     '''
     TODO: Añadir widgets y lógica de la aplicación aquí
     - Mensaje descriptivo donde escribirá el usuario
-    - Botón de salir
     etc.
     '''
 
