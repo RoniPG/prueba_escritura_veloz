@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from phrases import get_random_phrase
+
 
 def main():
 
@@ -28,14 +30,27 @@ def main():
     )
     description_label.pack(pady=10)
 
+    # Frase aleatoria (solo visualización)
+    random_phrase = get_random_phrase()
+    phrase_label = tk.Label(
+        root,
+        text=random_phrase,
+        wraplength=500,
+        justify="center",
+        font=("Arial", 12, "italic"),
+        fg="#333333",
+    )
+    phrase_label.pack(pady=10)
+
     # Botón de salir
     exit_button = tk.Button(root, text="Salir", command=root.destroy)
     exit_button.pack(pady=20)
 
     """
     TODO: Añadir widgets y lógica de la aplicación aquí
-    - Mensaje descriptivo donde escribirá el usuario
-    etc.
+    - Campo de texto donde escribirá el usuario
+    - Botón para iniciar/terminar prueba
+    - Cálculo de tiempo, WPM y precisión
     """
 
     root.mainloop()
