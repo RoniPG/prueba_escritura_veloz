@@ -1,67 +1,12 @@
 import tkinter as tk
 
-from phrases import get_random_phrase
+from typing_app import TypingSpeedApp
 
 
-def main():
+def main() -> None:
 
-    # Crear ventana principal
     root = tk.Tk()
-    root.title("Prueba de Escritura Veloz")
-    root.geometry("600x300")
-
-    # Etiqueta de bienvenida
-    title_label = tk.Label(
-        root, text="Prueba de Escritura Veloz", font=("Arial", 16, "bold")
-    )
-    title_label.pack(pady=20)
-
-    # Mensaje descriptivo
-    description_label = tk.Label(
-        root,
-        text=(
-            "En esta aplicación verás una frase y tu reto será escribirla "
-            "lo más rápido y preciso posible."
-        ),
-        wraplength=500,  # Ajusta el texto al ancho
-        justify="center",  # Centra el texto
-        font=("Arial", 12),
-        fg="#555555",  # Color gris suave
-    )
-    description_label.pack(pady=10)
-
-    # Frase aleatoria (solo visualización)
-    random_phrase = get_random_phrase()
-    phrase_label = tk.Label(
-        root,
-        text=random_phrase,
-        wraplength=500,
-        justify="center",
-        font=("Arial", 12, "italic"),
-        fg="#333333",
-    )
-    phrase_label.pack(pady=10)
-
-    # Campo de texto donde el usuario escribirá la frase
-    typing_entry = tk.Entry(
-        root,
-        width=70,
-        font=("Arial", 12),
-    )
-    typing_entry.pack(pady=10)
-    typing_entry.insert(0, "Escribe aquí la frase mostrada arriba...")
-    typing_entry.config(fg="#888888")
-
-    # Botón de salir
-    exit_button = tk.Button(root, text="Salir", command=root.destroy)
-    exit_button.pack(pady=20)
-
-    """
-    TODO: Añadir widgets y lógica de la aplicación aquí
-    - Botón para iniciar/terminar prueba
-    - Cálculo de tiempo, WPM y precisión
-    """
-
+    app = TypingSpeedApp(root)
     root.mainloop()
 
 
