@@ -42,13 +42,22 @@ def main():
     )
     phrase_label.pack(pady=10)
 
+    # Campo de texto donde el usuario escribirá la frase
+    typing_entry = tk.Entry(
+        root,
+        width=70,
+        font=("Arial", 12),
+    )
+    typing_entry.pack(pady=10)
+    typing_entry.insert(0, "Escribe aquí la frase mostrada arriba...")
+    typing_entry.config(fg="#888888")
+
     # Botón de salir
     exit_button = tk.Button(root, text="Salir", command=root.destroy)
     exit_button.pack(pady=20)
 
     """
     TODO: Añadir widgets y lógica de la aplicación aquí
-    - Campo de texto donde escribirá el usuario
     - Botón para iniciar/terminar prueba
     - Cálculo de tiempo, WPM y precisión
     """
