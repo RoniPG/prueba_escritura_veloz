@@ -16,8 +16,8 @@ Incluye una interfaz gráfica sencilla creada con **tkinter**, ideal para entend
 ### 1️⃣ Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/typing-speed-test.git
-cd typing-speed-test
+git clone https://github.com/RoniPG/prueba_escritura_veloz.git
+cd prueba_escritura_veloz
 ```
 
 ### 2️⃣ (Opcional) Crear un entorno virtual con conda
