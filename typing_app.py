@@ -8,7 +8,7 @@ class TypingSpeedApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("Prueba de Escritura Veloz")
-        self.root.geometry("600x300")
+        self.root.geometry("700x400")
 
         # Guardaremos referencias para usarlas más adelante
         self.phrase_label: tk.Label | None = None
@@ -81,10 +81,7 @@ class TypingSpeedApp:
 
         # Etiqueta de resultados(inicialmente vacía)
         self.result_label = tk.Label(
-            self.root,
-            text="",
-            font=("Arial", 11),
-            fg="#222222"
+            self.root, text="", font=("Arial", 11), fg="#222222"
         )
         self.result_label.pack(pady=5)
 
@@ -108,6 +105,25 @@ class TypingSpeedApp:
         # Guardar tiempo de inicio
         self.start_time = time.time()
         print(f"Test started at: {self.start_time}")  # debug en consola
+
+    def calculate_accuracy(self, typed: str, target: str) -> float:
+        """Devuelve la precisión (%) comparando el texto escrito con el objetivo."""
+        if not target:
+            return 0.0
+
+        correct_chars = sum(1 for t, g in zip(typed, target) if t == g)
+        total_chars = max(len(target), len(typed)) or 1
+        return (correct_chars / total_chars) * 100
+
+    def calculate_wpm(self, typed: str, elapsed_seconds: float) -> float:
+        """Calcula palabras por minuto (WPM) a partir del texto escrito y el tiempo."""
+        if elapsed_seconds <= 0:
+            return 0.0
+
+        words = len(typed.split())
+        minutes = elapsed_seconds / 60.0
+        return words / minutes if minutes > 0 else 0.0
+
     def finish_test(self) -> None:
         """Calcula el tiempo total de la prueba y lo muestra en pantalla."""
         if self.start_time is None:
@@ -122,9 +138,28 @@ class TypingSpeedApp:
         end_time = time.time()
         elapsed_seconds = end_time - self.start_time
 
+        # Obtener textos
+        typed_text = ""
+        target_text = ""
+
+        if self.typing_entry is not None:
+            typed_text = self.typing_entry.get()
+
+        if self.phrase_label is not None:
+            target_text = self.phrase_label.cget("text")
+
+        # Calcular métricas
+        accuracy = self.calculate_accuracy(typed_text, target_text)
+        wpm = self.calculate_wpm(typed_text, elapsed_seconds)
+
+        # Mostrar resultados
         if self.result_label is not None:
             self.result_label.config(
-                text=f"Tiempo total: {elapsed_seconds:.2f} segundos",
+                text=(
+                    f"Tiempo total: {elapsed_seconds:.2f} segundos\n"
+                    f"Velocidad: {wpm:.2f} palabras por minuto\n"
+                    f"Precisión: {accuracy:.2f}%"
+                ),
                 fg="#222222",
             )
 
